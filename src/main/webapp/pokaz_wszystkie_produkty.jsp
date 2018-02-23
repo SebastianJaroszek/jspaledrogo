@@ -1,10 +1,6 @@
-<%@ page import="pl.dominisz.Product" %>
-<%@ page import="pl.dominisz.ProductRepository" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page errorPage="errorpage.jsp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%!
-    ProductRepository productRepository = ProductRepository.getInstance();
-%>
 <html>
 <head>
     <title>Pokaż wszystkie produkty</title>
@@ -16,15 +12,12 @@
 <div class="container">
     <h2>Lista wszystkich produktów w sklepie</h2>
     <ul class="collection">
-        <%
-            for (Product product : productRepository.findAll()) {
-        %>
-        <li class="collection-item"><%= product.getName() %>, cena: <%= product.getPrice() %> zł,
-            <a href="pokaz_szczegoly_produktu.jsp?id=<%= product.getId() %>">Pokaż szczegóły produktu</a>
-        </li>
-        <%
-            }
-        %>
+
+        <c:forEach items="${products}" var="product">
+            <li class="collection-item"> ${product.name}, ${product.price} zł,
+                <a href="pokaz_szczegoly_produktu.jsp?id=${product.id}">Pokaż szczegóły produktu</a>
+            </li>
+        </c:forEach>
     </ul>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>

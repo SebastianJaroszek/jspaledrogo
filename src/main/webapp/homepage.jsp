@@ -9,7 +9,7 @@
 <body>
 <div class="container">
     <h2>Aledrogo</h2>
-    <a href="pokaz_wszystkie_produkty.jsp">Pokaż wszystkie produkty w sklepie</a><br>
+    <a href="showAllProducts">Pokaż wszystkie produkty w sklepie</a><br>
     <a href="pokaz_zawartosc_koszyka.jsp">Pokaż zawartość koszyka</a><br>
     <a href="zloz_zamowienie.jsp">Złóż zamówienie</a><br>
 
