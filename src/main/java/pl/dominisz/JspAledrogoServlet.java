@@ -8,12 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/showAllProducts", "/showProductDetails", "/addToCart"})
+@WebServlet(urlPatterns = {"/showAllProducts", "/showProductDetails", "/addToCart", "/showCart", "/placeOrder"})
 public class JspAledrogoServlet extends HttpServlet {
 
     ProductRepository productRepository = ProductRepository.getInstance();
+    Cashbox cashbox = new Cashbox();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,7 +24,51 @@ public class JspAledrogoServlet extends HttpServlet {
             showAllProducts(req, resp);
         } else if (requestUri.endsWith("/showProductDetails")) {
             showProductDetails(req, resp);
+        } else if (requestUri.endsWith("/showCart")) {
+            showCart(req, resp);
+        } else if (requestUri.endsWith("/placeOrder")) {
+            placeOrder(req, resp);
         }
+    }
+
+    private void placeOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("zloz_zamowienie.jsp");
+        HttpSession session = req.getSession();
+        Cart cart = (Cart) session.getAttribute("cart");
+        if (cart != null && !cart.getCartItems().isEmpty()) {
+            for (CartItem cartItem : cart.getCartItems()) {
+                Product product = productRepository.findById(cartItem.getId());
+                if (product != null) {
+                    productRepository.setCount(product.getId(),
+                            product.getCount() - cartItem.getQuantity());
+                }
+            }
+            cart.getCartItems().clear();
+            req.setAttribute("message", "zamówienie zostało złożone pomyślnie");
+        } else {
+            req.setAttribute("message", "koszyk jest pusty");
+        }
+        requestDispatcher.forward(req, resp);
+    }
+
+    private void showCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("pokaz_zawartosc_koszyka.jsp");
+
+        HttpSession session = req.getSession();
+        Cart cart = (Cart) session.getAttribute("cart");
+        if (cart != null && !cart.getCartItems().isEmpty()) {
+            List<CartItem> cartItems = cart.getCartItems();
+            List<ProductInCart> productInCarts = new ArrayList<>();
+            for (CartItem cartItem : cartItems) {
+                Product product = productRepository.findById(cartItem.getId());
+                ProductInCart productInCart = new ProductInCart(product.getName(), product.getPrice(), cartItem.getQuantity());
+                productInCarts.add(productInCart);
+            }
+            req.setAttribute("products", productInCarts);
+            req.setAttribute("totalPrice", cashbox.getTotalPrice(cart));
+        }
+
+        requestDispatcher.forward(req, resp);
     }
 
     @Override
@@ -48,12 +94,11 @@ public class JspAledrogoServlet extends HttpServlet {
         /*if (id == null){
             req.setAttribute("message", "Produkt o podanym id nie istnieje");
         } else */
-        if (quantity > productRepository.findById(id).getCount()){
+        if (quantity > productRepository.findById(id).getCount()) {
             req.setAttribute("message", "nie ma wystarczającej ilości tego produktu na magazynie");
-        } else if(quantity < 1){
+        } else if (quantity < 1) {
             req.setAttribute("message", "nie możesz kupić mniej niż 1 produkt");
-        }
-        else {
+        } else {
             req.setAttribute("message", "Udało się dodać produkt do koszyka :-)");
         }
         /*req.setAttribute("message", "nie udało się dodać do koszyka");*/

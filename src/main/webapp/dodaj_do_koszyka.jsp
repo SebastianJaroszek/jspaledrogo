@@ -12,7 +12,7 @@
 <body>
 <div class="container">
     <h2>${message}</h2>
-    <a href="pokaz_zawartosc_koszyka.jsp">Pokaż zawartość koszyka</a>
+    <a href="showCart">Pokaż zawartość koszyka</a>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
 </div>
