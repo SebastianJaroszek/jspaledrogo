@@ -1,10 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="pl.dominisz.ProductRepository" %>
 <%@ page import="pl.dominisz.Product" %>
 <%@ page errorPage="errorpage.jsp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%!
-    ProductRepository productRepository = ProductRepository.getInstance();
-%>
 <html>
 <head>
     <title>Pokaż szczegóły produktu</title>
@@ -15,20 +13,16 @@
 <body>
 <div class="container">
     <h2>Dane szczegółowe produktu</h2>
-    <%
-        int id = Integer.parseInt(request.getParameter("id"));
-        Product product = productRepository.findById(id);
-    %>
     <ul class="collection">
-        <li class="collection-item">Nazwa produktu: <%= product.getName() %></li>
-        <li class="collection-item">Opis produktu: <%= product.getDescription() %></li>
-        <li class="collection-item">Cena: <%= product.getPrice() %></li>
-        <li class="collection-item">Liczba sztuk w magazynie: <%= product.getCount() %></li>
+        <li class="collection-item">Nazwa produktu: ${product.name}</li>
+        <li class="collection-item">Opis produktu: ${product.description}</li>
+        <li class="collection-item">Cena: ${product.price}zł</li>
+        <li class="collection-item">Liczba sztuk w magazynie: ${product.count}</li>
         <li class="collection-item">
             <form action="dodaj_do_koszyka.jsp" method="post">
                 Liczba sztuk: <input type="number" value="1" name="quantity">
                 <input type="submit" value="Dodaj do koszyka">
-                <input type="hidden" value="<%=id%>" name="id">
+                <input type="hidden" value="${product.id}" name="id">
             </form>
         </li>
     </ul>

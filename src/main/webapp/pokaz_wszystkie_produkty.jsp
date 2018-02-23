@@ -15,7 +15,7 @@
 
         <c:forEach items="${products}" var="product">
             <li class="collection-item"> ${product.name}, ${product.price} zł,
-                <a href="pokaz_szczegoly_produktu.jsp?id=${product.id}">Pokaż szczegóły produktu</a>
+                <a href="showProductDetails?id=${product.id}">Pokaż szczegóły produktu</a>
             </li>
         </c:forEach>
     </ul>
