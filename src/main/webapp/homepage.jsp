@@ -10,7 +10,7 @@
 <div class="container">
     <h2>Aledrogo</h2>
     <a href="pokaz_wszystkie_produkty.jsp">Pokaż wszystkie produkty w sklepie</a><br>
-    <a href="pokaz_koszyk.jsp">Pokaż zawartość koszyka</a><br>
+    <a href="pokaz_zawartosc_koszyka.jsp">Pokaż zawartość koszyka</a><br>
     <a href="zloz_zamowienie.jsp">Złóż zamówienie</a><br>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
