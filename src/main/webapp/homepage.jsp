@@ -18,6 +18,7 @@
         </c:if>
         <li class="collection-item"><a href="showCart">Pokaż zawartość koszyka</a></li>
         <li class="collection-item"><a href="placeOrder">Złóż zamówienie</a></li>
+        <li class="collection-item"><a href="login.jsp">Zaloguj się</a></li>
     </ul>
 
 
