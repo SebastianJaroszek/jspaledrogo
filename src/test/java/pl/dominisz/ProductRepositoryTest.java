@@ -23,7 +23,7 @@ class ProductRepositoryTest {
         //TODO zaszyta na stałe lista produktów w konstruktorze nie jest dobra pod kątem testów
         //lepiej dostarczać listę produktów z zewnątrz, np. setter, add
         List<Product> products = productRepository.findAll();
-        assertEquals(9, products.size(), "There should be 9 products");
+        assertEquals(10, products.size(), "There should be 10 products");
     }
 
     @Test

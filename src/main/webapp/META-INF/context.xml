@@ -1,0 +1,9 @@
+<Context>
+    <Resource name="jdbc/jsp_schema"
+              auth="Container"
+              type="javax.sql.DataSource"
+              username="jsp_user"
+              password="jsp_password"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/jsp_schema"/>
+</Context>

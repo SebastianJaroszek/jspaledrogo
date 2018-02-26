@@ -1,5 +1,6 @@
 package pl.dominisz;
 
+import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +16,11 @@ import java.util.List;
 @WebServlet(urlPatterns = {"/showAllProducts", "/showProductDetails", "/addToCart", "/showCart", "/placeOrder"})
 public class JspAledrogoServlet extends HttpServlet {
 
-    ProductRepository productRepository = ProductRepository.getInstance();
-    Cashbox cashbox = new Cashbox();
+    private ProductRepository productRepository = ProductRepository.getInstance();
+    private Cashbox cashbox = new Cashbox();
+
+   /* @Resource(name="jdbc/jsp_schema")
+    private DataSource dataSource;*/
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
