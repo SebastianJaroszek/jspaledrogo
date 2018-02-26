@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
             UserDetails userDetails = new UserDetails(username, LocalDateTime.now());
             HttpSession httpSession = req.getSession();
             httpSession.setAttribute("userDetails", userDetails);
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/placeOrder");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("placeOrder");
             requestDispatcher.forward(req, resp);
         } else {
             req.setAttribute("message", "Niepoprawna nazwa użytkownika lub hasło");

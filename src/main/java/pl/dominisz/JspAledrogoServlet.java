@@ -23,6 +23,16 @@ public class JspAledrogoServlet extends HttpServlet {
     private DataSource dataSource;*/
 
     @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String requestUri = req.getRequestURI();
+        if (requestUri.endsWith("/addToCart")) {
+            addToCart(req, resp);
+        } else if (requestUri.endsWith("/placeOrder")) {
+            placeOrder(req, resp);
+        }
+    }
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String requestUri = req.getRequestURI();
         if (requestUri.endsWith("/showAllProducts")) {
@@ -76,13 +86,7 @@ public class JspAledrogoServlet extends HttpServlet {
         requestDispatcher.forward(req, resp);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String requestUri = req.getRequestURI();
-        if (requestUri.endsWith("/addToCart")) {
-            addToCart(req, resp);
-        }
-    }
+
 
     private void addToCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("dodaj_do_koszyka.jsp");
