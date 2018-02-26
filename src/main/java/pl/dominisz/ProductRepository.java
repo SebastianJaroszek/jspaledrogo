@@ -116,6 +116,18 @@ public class ProductRepository {
      * @param count nowa liczba sztuk produktu
      */
     public void setCount(int id, int count) {
+        Connection connection = null;
+        try {
+            connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE products SET count = ? WHERE id = ?");
+            preparedStatement.setInt(1, count);
+            preparedStatement.setInt(2, id);
 
+            preparedStatement.executeUpdate();
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
